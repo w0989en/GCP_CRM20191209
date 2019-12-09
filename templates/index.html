@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+
+<h1 style="padding-left:10%;">2019年 CRM整理</h1>
+<img id="cloud" src="{{ user_image }}" alt="User Image"  width="80%">
+
+<p style="padding-left:10%;">輸入關鍵字，查詢最相關的詞，X軸為兩者相關程度(相關程度高代表2者在前後文經常同時出現)</p>
+<form style="padding-left:10%;">
+  <div >
+    <input id="input1" type="text" placeholder="例：主管">
+    <input type="submit">
+  </div>
+</form>
+
+<img id="img1" src="back.jpg" alt="查無資料" width="80%">
+
+<script>
+function postFunction(){
+    console.log('post')
+    $.ajax({
+			data : {
+				name : $('#input1').val(),
+			},
+			type : 'POST',
+			url : '/process'
+		})
+		.done(function(data) {
+			$('#img1').attr("src", data.img1)
+			document.documentElement.scrollTop = 500
+		});
+}
+//button2.addEventListener('click', postFunction, false);
+
+
+$( "form" ).submit(function(event) {
+  $("form").submit(postFunction())
+  event.preventDefault();
+});
+
+</script>
+</body>
+</html>
+
+
